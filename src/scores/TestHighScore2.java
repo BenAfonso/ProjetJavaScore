@@ -38,7 +38,7 @@ public class TestHighScore2 {
       FileInputStream fstream = null;
 
       try {
-        fstream = new FileInputStream("scoreSample.txt");
+        fstream = new FileInputStream("assets/scoreSample.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         String cur;
         while ((cur = br.readLine()) != null){
