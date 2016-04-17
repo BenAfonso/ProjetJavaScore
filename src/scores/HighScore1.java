@@ -13,7 +13,7 @@ import java.net.URL;
 *   @author: AFONSO Benjamin and CABOURG Max
 *   @see: scores#TestHighSCore
 */
-public class HighScore {
+public class HighScore1 {
 
   /*
   *  Calls the API server and returns the scores

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 *
 *
 */
-public class TestHighScore {
+public class TestHighScore2 {
 
     private static String nickname = null;
 
@@ -24,7 +24,7 @@ public class TestHighScore {
       Integer score = chooseScore();
       // Display score
       System.out.println("Good job "+nickname+", you've done "+score+" !");
-      HighScore h = new HighScore();
+      HighScore2 h = new HighScore2();
       h.getScores();
     }
 
