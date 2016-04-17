@@ -19,6 +19,7 @@ public class TestHighScore1 {
       System.out.print("What's your nickname ? ");
       Scanner in = new Scanner(System.in);
       nickname = in.nextLine();
+      in.close();
 
       // Simulate score
       Integer score = chooseScore();
@@ -31,7 +32,6 @@ public class TestHighScore1 {
 
     // Automatically choose a random score
     private static int chooseScore() {
-      int nbScores = 0;
       ArrayList<String> t = new ArrayList<String>();
 
       // Opens the score file

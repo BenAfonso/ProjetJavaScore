@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +48,8 @@ public class HighScore2 {
       JSONObject jsonObject = (JSONObject) obj;
       // Make an array out of 'feeds'
       JSONArray scores = (JSONArray) jsonObject.get("feeds");
-      Iterator<JSONObject> i = scores.iterator();
+      @SuppressWarnings("unchecked")
+	Iterator<JSONObject> i = scores.iterator();
 
       // Get all players and scores and store it in an ArrayList
       while (i.hasNext()){
@@ -73,9 +74,9 @@ public class HighScore2 {
    * @param readScores array containing the players associated with their scores
    * @return an array containing the ten best players
    */
-  public BestPlayer2[] tenBestScores(String[][] readScores){
+  public ArrayList<BestPlayer2> tenBestScores(String[][] readScores){
     // Creating the array to recieve the 10 best players
-      BestPlayer2[] allBest = new BestPlayer2[10];
+      ArrayList<BestPlayer2> allBest = new ArrayList<BestPlayer2>();
       ArrayList<BestPlayer2> allPlayers = new ArrayList<BestPlayer2>();
       for(int i = 0; i<readScores.length;  i++){
     	  BestPlayer2 bp = new BestPlayer2(Integer.parseInt(readScores[i][1]), readScores[i][0]); //Parsing players, no Scanner needed
@@ -87,13 +88,13 @@ public class HighScore2 {
       if(allPlayers.size()>= 10)
       {
 	      for(int i = 0; i < 10; i++)
-	    	  allBest[i] = allPlayers.get(i);
+	    	  allBest.add(i,allPlayers.get(i));
 	      
       }    
       else //If less than 10 players
       {
 	      for(int i = 0; i < allPlayers.size(); i++)
-	    	  allBest[i] = allPlayers.get(i);
+	    	  allBest.add(i,allPlayers.get(i));
 	      
       }
       return allBest;
@@ -102,7 +103,7 @@ public class HighScore2 {
   private ArrayList<BestPlayer2> sortPlayers(ArrayList<BestPlayer2> allPlayers){
 	  for(int i = 0; i<allPlayers.size()-1; i++){
 		  for(int j = i+1; j<allPlayers.size(); j++){
-			  if(allPlayers.get(i).getScore()>allPlayers.get(j).getScore())
+			  if(allPlayers.get(i).getScore()<allPlayers.get(j).getScore())
 				  Collections.swap(allPlayers, i, j); //Swapping 2 elements
 		  }
 	  }
