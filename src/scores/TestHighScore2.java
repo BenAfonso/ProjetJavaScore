@@ -25,7 +25,17 @@ public class TestHighScore2 {
       // Display score
       System.out.println("Good job "+nickname+", you've done "+score+" !");
       HighScore2 h = new HighScore2();
-      h.getScores();
+      ArrayList<String> s = h.getScores();
+      String[][] array = new String[s.size()/2][2];
+      for(int i = 0; i<s.size(); i+=2){
+    	  array[i/2][0] = s.get(i); //Get name
+    	  array[i/2][1] = s.get(i+1); //Get score
+      }
+      
+      BestPlayer2[] tenBest = h.tenBestScores(array);
+      System.out.println("The ten best players are : ");
+      for(BestPlayer2 bp : tenBest)
+    	  System.out.println(bp);
     }
 
 

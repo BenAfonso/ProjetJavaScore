@@ -7,8 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
-
+import java.util.Collections;
 import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -69,11 +68,45 @@ public class HighScore2 {
     return result;
   }
 
-
-  public BestPlayer2[] tenBestScores(String[] readScores){
+  /**
+   * Gets the ten best score of all players.
+   * @param readScores array containing the players associated with their scores
+   * @return an array containing the ten best players
+   */
+  public BestPlayer2[] tenBestScores(String[][] readScores){
     // Creating the array to recieve the 10 best players
       BestPlayer2[] allBest = new BestPlayer2[10];
+      ArrayList<BestPlayer2> allPlayers = new ArrayList<BestPlayer2>();
+      for(int i = 0; i<readScores.length;  i++){
+    	  BestPlayer2 bp = new BestPlayer2(Integer.parseInt(readScores[i][1]), readScores[i][0]); //Parsing players, no Scanner needed
+    	  allPlayers.add(bp);	  
+      }
+      //Sort by scores
+      allPlayers = sortPlayers(allPlayers);
+      //If more or exactly 10 players
+      if(allPlayers.size()>= 10)
+      {
+	      for(int i = 0; i < 10; i++)
+	    	  allBest[i] = allPlayers.get(i);
+	      
+      }    
+      else //If less than 10 players
+      {
+	      for(int i = 0; i < allPlayers.size(); i++)
+	    	  allBest[i] = allPlayers.get(i);
+	      
+      }
       return allBest;
+  }
+  
+  private ArrayList<BestPlayer2> sortPlayers(ArrayList<BestPlayer2> allPlayers){
+	  for(int i = 0; i<allPlayers.size()-1; i++){
+		  for(int j = i+1; j<allPlayers.size(); j++){
+			  if(allPlayers.get(i).getScore()>allPlayers.get(j).getScore())
+				  Collections.swap(allPlayers, i, j); //Swapping 2 elements
+		  }
+	  }
+	  return allPlayers;
   }
 
 
