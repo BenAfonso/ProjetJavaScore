@@ -24,7 +24,7 @@ public class TestHighScore1 {
       Integer score = chooseScore();
       // Display score
       System.out.println("Good job "+nickname+", you've done "+score+" !");
-      HighScore h = new HighScore();
+      HighScore2 h = new HighScore2();
       h.getScores();
     }
 

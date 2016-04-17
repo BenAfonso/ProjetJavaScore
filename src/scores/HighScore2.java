@@ -70,9 +70,9 @@ public class HighScore2 {
   }
 
 
-  public BestPlayer[] tenBestScores(String[] readScores){
+  public BestPlayer2[] tenBestScores(String[] readScores){
     // Creating the array to recieve the 10 best players
-      BestPlayer[] allBest = new BestPlayer[10];
+      BestPlayer2[] allBest = new BestPlayer2[10];
       return allBest;
   }
 
