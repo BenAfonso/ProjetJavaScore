@@ -9,7 +9,7 @@ import java.util.ArrayList;
 *
 *
 */
-public class TestHighScore2 {
+public class TestHighScore3 {
 
     private static String nickname = null;
 
@@ -27,9 +27,9 @@ public class TestHighScore2 {
       System.out.println("Good job "+nickname+", you've done "+score+" !");
       
       // Create an instance of BestPlayer
-      BestPlayer2 player = new BestPlayer2(score,nickname);
+      BestPlayer3 player = new BestPlayer3(score,nickname);
       
-      HighScore2 h = new HighScore2();
+      HighScore3 h = new HighScore3();
       
       ArrayList<String> s = h.getScores();
       String[][] array = new String[s.size()/2][2];
@@ -38,11 +38,17 @@ public class TestHighScore2 {
     	  array[i/2][1] = s.get(i+1); //Get score
       }
       
-      ArrayList<BestPlayer2> tenBest = h.tenBestScores(array);
+      ArrayList<BestPlayer3> tenBest = h.tenBestScores(array);
       System.out.println("The ten best players are : ");
-      for(BestPlayer2 bp : tenBest)
+      for(BestPlayer3 bp : tenBest)
     	  System.out.println(bp);
       
+      // Sending score ... or not ?
+      if (h.sendScore(player)){
+    	  System.out.println("Congratulation ! You are one of the best players !");
+      }else{
+    	  System.out.println("Oops ! You score is below the 10 best scores...");
+      };
     }
 
 
