@@ -26,27 +26,7 @@ public class HighScore1 {
     // Reading the distant ressource
     res = readBuffer(conn);
     // Printing the JSON.
-    System.out.println(res);
-
     return null;
-  }
-
-
-
-  /**
-  * Simulate a player playing.
-  *
-  */
-  public void play(){
-
-  }
-
-  /**
-  *  Send score to the distant API Server
-  *
-  */
-  public void sendScore(String[] score){
-
   }
 
   // Read the buffer contained in the given HttpURLConnection

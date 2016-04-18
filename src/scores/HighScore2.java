@@ -36,9 +36,6 @@ public class HighScore2 {
     res = readBuffer(conn);
     // Printing the JSON.
     ArrayList<String> result = new ArrayList<String>();
-    System.out.println("\nRecieved JSON from distant server: ");
-    System.out.println(res);
-    System.out.println("\n");
 
     try {
       JSONParser parser = new JSONParser();
@@ -58,8 +55,6 @@ public class HighScore2 {
         result.add(cur.get("field1").toString());
 
       }
-      System.out.println(result);
-
 
     } catch (ParseException e) {
       e.printStackTrace();
@@ -108,15 +103,6 @@ public class HighScore2 {
 		  }
 	  }
 	  return allPlayers;
-  }
-
-
-  /**
-  *  Send score to the distant API Server
-  *
-  */
-  public void sendScore(String[] score){
-
   }
 
   // Read the buffer contained in the given HttpURLConnection

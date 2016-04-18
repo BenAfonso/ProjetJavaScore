@@ -23,7 +23,7 @@ import org.json.simple.parser.ParseException;
 */
 public class HighScore3 {
 
-  /*
+  /**
   *  Calls the API server and returns the scores
   *  @return: ArrayList<String>
   */
@@ -36,9 +36,6 @@ public class HighScore3 {
     res = readBuffer(conn);
     // Printing the JSON.
     ArrayList<String> result = new ArrayList<String>();
-    System.out.println("\nRecieved JSON from distant server: ");
-    System.out.println(res);
-    System.out.println("\n");
 
     try {
       JSONParser parser = new JSONParser();
@@ -58,9 +55,6 @@ public class HighScore3 {
         result.add(cur.get("field1").toString());
 
       }
-      System.out.println(result);
-
-
     } catch (ParseException e) {
       e.printStackTrace();
     }
