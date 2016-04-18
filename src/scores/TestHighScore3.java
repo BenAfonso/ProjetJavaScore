@@ -9,7 +9,7 @@ import java.util.ArrayList;
 *
 *
 */
-public class TestHighScore1 {
+public class TestHighScore3 {
 
     private static String nickname = null;
 
@@ -25,20 +25,43 @@ public class TestHighScore1 {
       Integer score = chooseScore();
       // Display score
       System.out.println("Good job "+nickname+", you've done "+score+" !");
-      HighScore2 h = new HighScore2();
-      h.getScores();
+      
+      // Create an instance of BestPlayer
+      BestPlayer3 player = new BestPlayer3(score,nickname);
+      
+      HighScore3 h = new HighScore3();
+      
+      ArrayList<String> s = h.getScores();
+      String[][] array = new String[s.size()/2][2];
+      for(int i = 0; i<s.size(); i+=2){
+    	  array[i/2][0] = s.get(i); //Get name
+    	  array[i/2][1] = s.get(i+1); //Get score
+      }
+      
+      ArrayList<BestPlayer3> tenBest = h.tenBestScores(array);
+      System.out.println("The ten best players are : ");
+      for(BestPlayer3 bp : tenBest)
+    	  System.out.println(bp);
+      
+      // Sending score ... or not ?
+      if (h.sendScore(player)){
+    	  System.out.println("Congratulation ! You are one of the best players !");
+      }else{
+    	  System.out.println("Oops ! You score is below the 10 best scores...");
+      };
     }
 
 
     // Automatically choose a random score
     private static int chooseScore() {
+
       ArrayList<String> t = new ArrayList<String>();
 
       // Opens the score file
       FileInputStream fstream = null;
 
       try {
-        fstream = new FileInputStream(new File("assets/scoreSample.txt"));
+        fstream = new FileInputStream("assets/scoreSample.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         String cur;
         while ((cur = br.readLine()) != null){

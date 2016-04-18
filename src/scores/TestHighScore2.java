@@ -19,12 +19,18 @@ public class TestHighScore2 {
       System.out.print("What's your nickname ? ");
       Scanner in = new Scanner(System.in);
       nickname = in.nextLine();
+      in.close();
 
       // Simulate score
       Integer score = chooseScore();
       // Display score
       System.out.println("Good job "+nickname+", you've done "+score+" !");
+      
+      // Create an instance of BestPlayer
+      BestPlayer2 player = new BestPlayer2(score,nickname);
+      
       HighScore2 h = new HighScore2();
+      
       ArrayList<String> s = h.getScores();
       String[][] array = new String[s.size()/2][2];
       for(int i = 0; i<s.size(); i+=2){
@@ -32,16 +38,17 @@ public class TestHighScore2 {
     	  array[i/2][1] = s.get(i+1); //Get score
       }
       
-      BestPlayer2[] tenBest = h.tenBestScores(array);
+      ArrayList<BestPlayer2> tenBest = h.tenBestScores(array);
       System.out.println("The ten best players are : ");
       for(BestPlayer2 bp : tenBest)
     	  System.out.println(bp);
+      
     }
 
 
     // Automatically choose a random score
     private static int chooseScore() {
-      int nbScores = 0;
+
       ArrayList<String> t = new ArrayList<String>();
 
       // Opens the score file

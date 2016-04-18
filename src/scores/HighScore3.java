@@ -21,7 +21,7 @@ import org.json.simple.parser.ParseException;
 *   @author: AFONSO Benjamin and CABOURG Max
 *   @see: scores#TestHighSCore
 */
-public class HighScore2 {
+public class HighScore3 {
 
   /*
   *  Calls the API server and returns the scores
@@ -74,12 +74,12 @@ public class HighScore2 {
    * @param readScores array containing the players associated with their scores
    * @return an array containing the ten best players
    */
-  public ArrayList<BestPlayer2> tenBestScores(String[][] readScores){
+  public ArrayList<BestPlayer3> tenBestScores(String[][] readScores){
     // Creating the array to recieve the 10 best players
-      ArrayList<BestPlayer2> allBest = new ArrayList<BestPlayer2>();
-      ArrayList<BestPlayer2> allPlayers = new ArrayList<BestPlayer2>();
+      ArrayList<BestPlayer3> allBest = new ArrayList<BestPlayer3>();
+      ArrayList<BestPlayer3> allPlayers = new ArrayList<BestPlayer3>();
       for(int i = 0; i<readScores.length;  i++){
-    	  BestPlayer2 bp = new BestPlayer2(Integer.parseInt(readScores[i][1]), readScores[i][0]); //Parsing players, no Scanner needed
+    	  BestPlayer3 bp = new BestPlayer3(Integer.parseInt(readScores[i][1]), readScores[i][0]); //Parsing players, no Scanner needed
     	  allPlayers.add(bp);	  
       }
       //Sort by scores
@@ -100,7 +100,48 @@ public class HighScore2 {
       return allBest;
   }
   
-  private ArrayList<BestPlayer2> sortPlayers(ArrayList<BestPlayer2> allPlayers){
+  /**
+   * send score on distant API only if given BestPlayer has a TOP10 Score
+   * @param p
+   * @return boolean
+   * 	true if the score is enough
+   * 	false if the score isn't in the TOP10
+   */
+  public boolean sendScore(BestPlayer3 p){
+	  
+	  
+	  // Creating a tenBestScore array to compare the given player
+	  ArrayList<String> s = getScores();
+      String[][] array = new String[s.size()/2][2];
+      for(int i = 0; i<s.size(); i+=2){
+    	  array[i/2][0] = s.get(i); //Get name
+    	  array[i/2][1] = s.get(i+1); //Get score
+      }
+      
+      ArrayList<BestPlayer3> tenBest = tenBestScores(array);
+      
+      int i = 0;
+      while (p.compareTo(tenBest.get(i)) == -1 && i < tenBest.size()){
+    	  i++;
+      }
+      
+      // If p.compareTo(tenBest.get(i) != -1 <=> p in the top10
+      
+      if (!(i == tenBest.size())){
+    	  // Send the result
+    	  readBuffer(GET("https://api.thingspeak.com/update?api_key=VAZH2UAGFI51ENX0&field1="+p.getScore()+"&field2="+p.getPlayer()));
+    	  return true;
+      }
+      return false;
+
+      
+      
+	  
+	  
+
+  }
+  
+  private ArrayList<BestPlayer3> sortPlayers(ArrayList<BestPlayer3> allPlayers){
 	  for(int i = 0; i<allPlayers.size()-1; i++){
 		  for(int j = i+1; j<allPlayers.size(); j++){
 			  if(allPlayers.get(i).getScore()<allPlayers.get(j).getScore())
@@ -110,14 +151,6 @@ public class HighScore2 {
 	  return allPlayers;
   }
 
-
-  /**
-  *  Send score to the distant API Server
-  *
-  */
-  public void sendScore(String[] score){
-
-  }
 
   // Read the buffer contained in the given HttpURLConnection
   private String readBuffer(HttpURLConnection conn){
@@ -137,6 +170,7 @@ public class HighScore2 {
 
   }
 
+  
   // Open a HttpURLConnection to read the result.
   private HttpURLConnection GET(String target){
 
