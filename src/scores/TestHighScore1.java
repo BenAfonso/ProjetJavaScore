@@ -26,7 +26,8 @@ public class TestHighScore1 {
       // Display score
       System.out.println("Good job "+nickname+", you've done "+score+" !");
       HighScore2 h = new HighScore2();
-      h.getScores();
+      ArrayList<String> scores = h.getScores();
+      System.out.println(scores);
     }
 
 
