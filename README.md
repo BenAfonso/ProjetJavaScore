@@ -1,5 +1,6 @@
 # ProjetJavaScore
 Projet Java Score API (AFONSO Benjamin &amp; CABOURG Max)
+http://darkyler.github.io/ProjetJavaScore/
 
 ## API Details
 
